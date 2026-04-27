@@ -8,6 +8,10 @@ $db = new Database();
 $conn = $db->getConnection();
 
 $lang = $_GET['lang'] ?? $_COOKIE['lang'] ?? 'tn';
+
+if (isset($_GET['lang']) && in_array($_GET['lang'], ['en', 'fr', 'ar', 'tn'])) {
+    setcookie('lang', $_GET['lang'], time() + (86400 * 30), '/');
+}
 $langFile = __DIR__ . '/lang/' . $lang . '.json';
 $labels = file_exists($langFile) ? json_decode(file_get_contents($langFile), true) : [];
 $defaultLabels = json_decode(file_get_contents(__DIR__ . '/lang/en.json'), true);
@@ -19,15 +23,21 @@ try {
 
     $stmt = $conn->query("SELECT id, category_key FROM restaurant_categories ORDER BY category_key");
     $categories = $stmt->fetchAll();
+    
+    $stmt = $conn->query("SELECT id, dietary_key FROM restaurant_dietary_options ORDER BY id");
+    $dietary = $stmt->fetchAll();
 
     $stmt = $conn->query("
         SELECT r.id, r.name, r.average_rating, p.name_fr as place, g.name_fr as governorate,
-               STRING_AGG(rc.category_key, ',') as categories
+               STRING_AGG(DISTINCT rc.category_key, ',') as categories,
+               STRING_AGG(DISTINCT rd.dietary_key, ',') as dietary
         FROM restaurants r
         JOIN places p ON r.place_id = p.id
         JOIN gouvernorats g ON p.gouvernorat_id = g.id
         LEFT JOIN restaurant_categories_junction rcj ON r.id = rcj.restaurant_id
         LEFT JOIN restaurant_categories rc ON rcj.category_id = rc.id
+        LEFT JOIN restaurant_dietary_junction rdj ON r.id = rdj.restaurant_id
+        LEFT JOIN restaurant_dietary_options rd ON rdj.dietary_id = rd.id
         GROUP BY r.id, r.name, r.average_rating, p.name_fr, g.name_fr
         ORDER BY r.name
     ");
@@ -136,6 +146,23 @@ try {
                     <?php endforeach; ?>
                 </div>
             </div>
+            
+            <?php if (!empty($dietary)): ?>
+            <div class="filter-group">
+                <span class="filter-label"><?= htmlspecialchars($l['dietary'] ?? 'Dietary') ?></span>
+                <div class="filter-options" id="dietaryFilters">
+                    <input type="checkbox" class="filter-option" id="dietary_all" value="" checked>
+                    <label for="dietary_all"><?= htmlspecialchars($l['all'] ?? 'All') ?></label>
+                    <?php foreach ($dietary as $d): 
+                        $dietKey = $d['dietary_key'];
+                        $dietLabel = isset($l['dietary_options'][$dietKey]) ? $l['dietary_options'][$dietKey] : ucfirst(str_replace('_', ' ', $dietKey));
+                    ?>
+                        <input type="checkbox" class="filter-option" id="dietary_<?= htmlspecialchars($dietKey) ?>" value="<?= htmlspecialchars($dietKey) ?>">
+                        <label for="dietary_<?= htmlspecialchars($dietKey) ?>"><?= htmlspecialchars($dietLabel) ?></label>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
         
         <p class="count" id="count"></p>
@@ -195,17 +222,21 @@ try {
             
             const govAll = document.getElementById('gov_all').checked;
             const catAll = document.getElementById('cat_all').checked;
+            const dietaryAll = document.getElementById('dietary_all')?.checked ?? true;
             
             const govFilters = Array.from(document.querySelectorAll('#governorateFilters input:checked'))
                 .map(cb => cb.value).filter(v => v !== '');
             const catFilters = Array.from(document.querySelectorAll('#categoryFilters input:checked'))
+                .map(cb => cb.value).filter(v => v !== '');
+            const dietaryFilters = Array.from(document.querySelectorAll('#dietaryFilters input:checked'))
                 .map(cb => cb.value).filter(v => v !== '');
             
             const filtered = restaurants.filter(r => {
                 const matchSearch = !q || r.name.toLowerCase().includes(q) || (r.categories && r.categories.includes(q));
                 const matchGov = govAll || govFilters.length === 0 || govFilters.includes(r.governorate);
                 const matchCat = catAll || catFilters.length === 0 || (r.categories && catFilters.some(cat => r.categories.includes(cat)));
-                return matchSearch && matchGov && matchCat;
+                const matchDietary = dietaryAll || dietaryFilters.length === 0 || (r.dietary && dietaryFilters.some(d => r.dietary.includes(d)));
+                return matchSearch && matchGov && matchCat && matchDietary;
             });
             render(filtered);
         }
@@ -229,6 +260,17 @@ try {
                     document.querySelectorAll('#categoryFilters .filter-option:not(#cat_all)').forEach(c => c.checked = false);
                 } else if (this.id !== 'cat_all' && this.checked) {
                     document.getElementById('cat_all').checked = false;
+                }
+                filterData();
+            });
+        });
+        
+        document.querySelectorAll('#dietaryFilters .filter-option').forEach(cb => {
+            cb.addEventListener('change', function() {
+                if (this.id === 'dietary_all' && this.checked) {
+                    document.querySelectorAll('#dietaryFilters .filter-option:not(#dietary_all)').forEach(c => c.checked = false);
+                } else if (this.id !== 'dietary_all' && this.checked) {
+                    document.getElementById('dietary_all').checked = false;
                 }
                 filterData();
             });

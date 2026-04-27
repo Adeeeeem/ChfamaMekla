@@ -5,8 +5,29 @@
 	"search_btn": "Search",
 	"governorate": "Governorate",
 	"category": "Category",
+	"dietary": "Dietary",
 	"all": "All",
 	"restaurants": "restaurants",
 	"no_results": "No place to eat",
-	"footer": "What do we eat? - Made in Tunisia"
+	"footer": "What do we eat? - Made in Tunisia",
+	"categories": {
+		"burger": "Burger",
+		"pizza": "Pizza",
+		"spicy": "Spicy",
+		"sweet": "Sweet",
+		"traditional": "Traditional",
+		"sandwich": "Sandwich",
+		"kebab": "Kebab",
+		"seafood": "Seafood",
+		"dessert": "Dessert",
+		"drink": "Drink"
+	},
+	"dietary_options": {
+		"gluten_free": "Gluten Free",
+		"dairy_free": "Dairy Free",
+		"sugar_free": "Sugar Free",
+		"nut_free": "Nut Free",
+		"vegan": "Vegan",
+		"vegetarian": "Vegetarian"
+	}
 }
