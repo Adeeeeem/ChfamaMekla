@@ -1,0 +1,758 @@
+/**
+ * =============================================================================
+ * MAIN STYLES - Chfama Mekla?
+ * =============================================================================
+ * Appetite-inducing warm color palette
+ * Modern, creative design
+ * =============================================================================
+ */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+/*==================================================
+    Variables - Warm, Appetizing Colors
+==================================================*/
+:root
+{
+    /* Primary Colors - Warm & Appetizing */
+    --primary-color: #FF6B35;
+    --primary-light: #FF8F5E;
+    --primary-dark: #E55A2B;
+    
+    /* Secondary - Deep Red */
+    --secondary-color: #C41E3A;
+    --secondary-light: #E83E58;
+    
+    /* Accent - Fresh Green */
+    --accent-color: #2ECC71;
+    --accent-green: #27AE60;
+    
+    /* Neutrals */
+    --dark-bg: #1A1A2E;
+    --dark-card: #16213E;
+    --light-bg: #FFFEF8;
+    --card-bg: #FFFFFF;
+    
+    /* Text */
+    --text-dark: #2D3436;
+    --text-light: #636E72;
+    --text-muted: #B2BEC3;
+    --text-white: #FFFFFF;
+    
+    /* Utility */
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 40px rgba(0,0,0,0.16);
+    --shadow-glow: 0 0 30px rgba(255,107,53,0.3);
+    
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 50px;
+    
+    /* Transitions */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/*==================================================
+    Base Styles
+==================================================*/
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html
+{
+    scroll-behavior: smooth;
+}
+
+body
+{
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/*==================================================
+    Preloader
+==================================================*/
+#preloader
+{
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease;
+}
+
+#preloader.loaded
+{
+    opacity: 0;
+    pointer-events: none;
+}
+
+#status
+{
+    width: 80px;
+    height: 80px;
+    border: 4px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin
+{
+    to { transform: rotate(360deg); }
+}
+
+/*==================================================
+    Navbar
+==================================================*/
+.navbar
+{
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-sm);
+    padding: 15px 0;
+    transition: var(--transition);
+}
+
+.navbar-brand
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.brand-icon
+{
+    font-size: 28px;
+    animation: bounce 2s ease infinite;
+}
+
+@keyframes bounce
+{
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.brand-text
+{
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.navbar-toggler
+{
+    border: none;
+    padding: 8px;
+    background: none;
+}
+
+.toggler-icon
+{
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--text-dark);
+    position: relative;
+    transition: var(--transition);
+}
+
+.toggler-icon::before,
+.toggler-icon::after
+{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--text-dark);
+    transition: var(--transition);
+}
+
+.toggler-icon::before { top: -8px; }
+.toggler-icon::after { top: 8px; }
+
+.nav-link
+{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px !important;
+    color: var(--text-dark) !important;
+    font-weight: 500;
+    border-radius: var(--radius-full);
+    transition: var(--transition);
+}
+
+.nav-link:hover,
+.nav-link.active
+{
+    background: rgba(255,107,53,0.1);
+    color: var(--primary-color) !important;
+}
+
+.nav-icon
+{
+    font-size: 18px;
+}
+
+/*==================================================
+    Hero Section
+==================================================*/
+.hero
+{
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: 
+        linear-gradient(135deg, rgba(255,107,53,0.95), rgba(196,30,58,0.9)),
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="rgba(255,255,255,0.05)"/></svg>');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.hero::before
+{
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+    background-size: 30px 30px;
+    animation: drift 20s linear infinite;
+}
+
+@keyframes drift
+{
+    from { transform: translate(-50%, -50%); }
+    to { transform: translate(0, 0); }
+}
+
+.hero-content
+{
+    position: relative;
+    text-align: center;
+    padding: 20px;
+    max-width: 800px;
+}
+
+.hero-title
+{
+    font-size: clamp(48px, 10vw, 96px);
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+    margin-bottom: 10px;
+    animation: slideUp 0.8s ease forwards;
+}
+
+.hero-subtitle
+{
+    font-size: clamp(18px, 4vw, 24px);
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 40px;
+    animation: slideUp 0.8s ease 0.2s forwards;
+    opacity: 0;
+}
+
+@keyframes slideUp
+{
+    from { transform: translateY(30px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.hero-search
+{
+    margin-bottom: 30px;
+    animation: slideUp 0.8s ease 0.4s forwards;
+    opacity: 0;
+}
+
+.search-box
+{
+    display: flex;
+    background: white;
+    border-radius: var(--radius-full);
+    padding: 8px;
+    box-shadow: var(--shadow-lg);
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.search-input
+{
+    flex: 1;
+    border: none;
+    padding: 15px 20px;
+    font-size: 16px;
+    font-family: inherit;
+    border-radius: var(--radius-full);
+    outline: none;
+}
+
+.search-input::placeholder
+{
+    color: var(--text-muted);
+}
+
+.search-btn
+{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-btn:hover
+{
+    transform: scale(1.1);
+    box-shadow: var(--shadow-glow);
+}
+
+.hero-tags
+{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    animation: slideUp 0.8s ease 0.6s forwards;
+    opacity: 0;
+}
+
+.tag
+{
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.tag:hover
+{
+    background: white;
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.hero-scroll
+{
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    font-size: 30px;
+    animation: bounce 2s ease infinite;
+}
+
+/*==================================================
+    Categories Quick Access
+==================================================*/
+.categories-quick
+{
+    padding: 80px 0;
+    background: white;
+}
+
+.section-title
+{
+    font-size: clamp(28px, 5vw, 40px);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: var(--text-dark);
+}
+
+.categories-grid
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.category-card
+{
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid transparent;
+    box-shadow: var(--shadow-sm);
+}
+
+.category-card:hover
+{
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary-color);
+}
+
+.category-icon
+{
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+    transition: var(--transition);
+}
+
+.category-card:hover .category-icon
+{
+    transform: scale(1.2) rotate(10deg);
+}
+
+.category-name
+{
+    font-weight: 600;
+    color: var(--text-dark);
+    font-size: 16px;
+}
+
+/*==================================================
+    Restaurants Section
+==================================================*/
+.restaurants-section
+{
+    padding: 80px 0;
+    background: linear-gradient(180deg, var(--light-bg) 0%, #FFF5F0 100%);
+}
+
+.restaurants-list
+{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.loading
+{
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-light);
+}
+
+.spinner
+{
+    width: 50px;
+    height: 50px;
+    border: 4px solid rgba(255,107,53,0.2);
+    border-top-color: var(--primary-color);
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+/* Restaurant Card */
+.restaurant-card
+{
+    background: white;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.restaurant-card:hover
+{
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.restaurant-image
+{
+    height: 180px;
+    background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.restaurant-image::before
+{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="rgba(255,255,255,0.1)"><circle cx="20" cy="30" r="15"/><circle cx="60" cy="20" r="20"/><circle cx="80" cy="50" r="10"/></g></svg>');
+    background-size: 100px 100px;
+}
+
+.restaurant-badge
+{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: var(--accent-color);
+    color: white;
+    padding: 5px 15px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.restaurant-info
+{
+    padding: 20px;
+}
+
+.restaurant-name
+{
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.restaurant-location
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-light);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.restaurant-location span
+{
+    font-size: 16px;
+}
+
+.restaurant-meta
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.restaurant-rating
+{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.restaurant-category
+{
+    background: rgba(255,107,53,0.1);
+    color: var(--primary-color);
+    padding: 5px 15px;
+    border-radius: var(--radius-full);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/*==================================================
+    About Section
+==================================================*/
+.about-section
+{
+    padding: 80px 0;
+    background: var(--dark-bg);
+    color: white;
+}
+
+.about-content
+{
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-section .section-title
+{
+    color: white;
+}
+
+.about-text
+{
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 40px;
+}
+
+.about-features
+{
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.feature
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.feature-icon
+{
+    font-size: 24px;
+}
+
+.feature-text
+{
+    font-weight: 500;
+}
+
+/*==================================================
+    Footer
+==================================================*/
+footer
+{
+    background: #0F0F1A;
+    padding: 40px 0;
+    color: white;
+}
+
+.footer-content
+{
+    text-align: center;
+}
+
+.footer-brand
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.footer-brand .brand-icon
+{
+    font-size: 24px;
+    animation: none;
+}
+
+.footer-brand .brand-text
+{
+    font-size: 18px;
+}
+
+.footer-text
+{
+    color: var(--text-muted);
+    margin-bottom: 20px;
+}
+
+.footer-links
+{
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.footer-links a
+{
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer-links a:hover
+{
+    color: var(--primary-color);
+}
+
+/*==================================================
+    Responsive
+==================================================*/
+@media (max-width: 768px)
+{
+    .hero-tags
+    {
+        gap: 8px;
+    }
+    
+    .tag
+    {
+        padding: 6px 15px;
+        font-size: 12px;
+    }
+    
+    .categories-grid
+    {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .category-card
+    {
+        padding: 20px 10px;
+    }
+    
+    .category-icon
+    {
+        font-size: 36px;
+    }
+    
+    .about-features
+    {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Hidden Utility */
+.hidden
+{
+    display: none !important;
+}
+
+/* Error Message */
+.error
+{
+    color: var(--secondary-color);
+    font-size: 14px;
+}
