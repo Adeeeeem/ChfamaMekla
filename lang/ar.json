@@ -5,6 +5,7 @@
 	"search_btn": "ابحث",
 	"governorate": "الولاية",
 	"category": "الصنف",
+	"dietary": "الخيارات الغذائية",
 	"all": "الكل",
 	"restaurants": "مطاعم",
 	"no_results": "لا يوجد مكان للأكل",
@@ -21,5 +22,14 @@
 		"seafood": "بحري",
 		"dessert": "حلويات",
 		"drink": "مشروبات"
+	},
+	"dietary_options":
+	{
+		"gluten_free": "بدون غلوتين",
+		"dairy_free": "بدون ألبان",
+		"sugar_free": "بدون سكر",
+		"nut_free": "بدون مكسرات",
+		"vegan": "نباتي",
+		"vegetarian": "خضار"
 	}
 }

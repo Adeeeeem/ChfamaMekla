@@ -5,6 +5,7 @@
 	"search_btn": "Rechercher",
 	"governorate": "Gouvernorat",
 	"category": "Catégorie",
+	"dietary": "Régime alimentaire",
 	"all": "Tous",
 	"restaurants": "restaurants",
 	"no_results": "Aucun endroit pour manger",
@@ -20,5 +21,13 @@
 		"seafood": "Fruits de mer",
 		"dessert": "Dessert",
 		"drink": "Boisson"
+	},
+	"dietary_options": {
+		"gluten_free": "Sans Gluten",
+		"dairy_free": "Sans Lactose",
+		"sugar_free": "Sans Sucre",
+		"nut_free": "Sans Noix",
+		"vegan": "Végan",
+		"vegetarian": "Végétarien"
 	}
 }
