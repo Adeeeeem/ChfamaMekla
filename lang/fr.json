@@ -1,0 +1,24 @@
+{
+	"title": "Qu'est-ce qu'on mange?",
+	"subtitle": "Rechercher ou manger",
+	"search": "Rechercher un restaurant...",
+	"search_btn": "Rechercher",
+	"governorate": "Gouvernorat",
+	"category": "Catégorie",
+	"all": "Tous",
+	"restaurants": "restaurants",
+	"no_results": "Aucun endroit pour manger",
+	"footer": "Qu'est-ce qu'on mange? - Fait en Tunisie",
+	"categories": {
+		"burger": "Burger",
+		"pizza": "Pizza",
+		"spicy": "Epicé",
+		"sweet": "Sucré",
+		"traditional": "Traditionnel",
+		"sandwich": "Sandwich",
+		"kebab": "Kebab",
+		"seafood": "Fruits de mer",
+		"dessert": "Dessert",
+		"drink": "Boisson"
+	}
+}

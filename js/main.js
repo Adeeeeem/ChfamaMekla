@@ -1,192 +1,116 @@
 /**
- * =============================================================================
  * MAIN JAVASCRIPT - Chfama Mekla?
- * =============================================================================
- * Restaurant discovery app functionality
- * =============================================================================
  */
 
-$(document).ready(function()
-{
-    // Initialize app
+$(document).ready(function() {
     initApp();
 });
 
-function initApp()
-{
-    // Hide preloader after page load
-    $(window).on('load', function()
-    {
-        setTimeout(function()
-        {
-            $('#preloader').addClass('loaded');
-            setTimeout(function()
-            {
-                $('#preloader').hide();
-            }, 500);
-        }, 1000);
+function initApp() {
+    // Immediately hide preloader
+    $('#preloader').fadeOut(300, function() {
+        $(this).hide();
     });
 
-    // Navbar scroll effect
-    $(window).on('scroll', function()
-    {
-        if ($(this).scrollTop() > 50)
-        {
-            $('.navbar').addClass('scrolled');
-        }
-        else
-        {
-            $('.navbar').removeClass('scrolled');
-        }
-    });
-
-    // Smooth scroll for anchor links
-    $('a[href^="#"]').on('click', function(e)
-    {
-        const target = $(this).attr('href');
-        if (target === '#') return;
-        
-        e.preventDefault();
-        const offset = 70;
-        $('html, body').animate(
-        {
-            scrollTop: $(target).offset().top - offset
-        }, 800, 'easeInOutQuad');
-    });
-
-    // Search functionality (placeholder)
-    $('.search-btn').on('click', function()
-    {
-        const query = $('.search-input').val().trim();
-        if (query)
-        {
-            console.log('Searching for:', query);
-            // TODO: Implement search
-        }
-    });
-
-    // Category card click
-    $('.category-card').on('click', function()
-    {
-        const category = $(this).data('category');
-        console.log('Selected category:', category);
-        // TODO: Filter restaurants by category
-    });
-
-    // Load restaurants (AJAX placeholder)
+    // Load filters and restaurants
+    loadFilters();
     loadRestaurants();
 }
 
-function loadRestaurants()
-{
-    const $container = $('#restaurantsList');
-    
-    // Simulated restaurant data (will be replaced with AJAX)
-    const restaurants = [
-    {
-        id: 1,
-        name: 'Le Chef',
-        place: 'Tunis',
-        governorate: 'Tunis',
-        rating: 4.5,
-        category: 'Traditional'
-    },
-    {
-        id: 2,
-        name: 'Pizza Palace',
-        place: 'Ariana',
-        governorate: 'Ariana',
-        rating: 4.8,
-        category: 'Pizza'
-    },
-    {
-        id: 3,
-        name: 'Burger House',
-        place: 'Sfax',
-        governorate: 'Sfax',
-        rating: 4.2,
-        category: 'Burger'
-    },
-    {
-        id: 4,
-        name: 'Kebab Elite',
-        place: 'Sousse',
-        governorate: 'Sousse',
-        rating: 4.6,
-        category: 'Kebab'
-    }
-    ];
+function loadFilters() {
+    // Populate governorates
+    var governorates = ['Tunis', 'Ariana', 'Sfax', 'Sousse', 'Kairouan', 'Bizerte', 'Gabès', 'Nabeul'];
+    governorates.forEach(function(g) {
+        $('#governorateFilter').append('<option value="' + g + '">' + g + '</option>');
+    });
 
-    // Render restaurant cards
-    setTimeout(function()
-    {
-        $container.html('');
-        
-        restaurants.forEach(function(restaurant, index)
-        {
-            const card = createRestaurantCard(restaurant);
-            $container.append(card);
-            
-            // Staggered animation
-            setTimeout(function()
-            {
-                card.fadeIn(400);
-            }, index * 100);
-        });
-    }, 500);
+    // Populate categories
+    var categories = ['Burger', 'Pizza', 'Traditional', 'Kebab', 'Seafood', 'Sandwich', 'Spicy', 'Dessert', 'Drink'];
+    categories.forEach(function(c) {
+        $('#categoryFilter').append('<option value="' + c + '">' + c + '</option>');
+    });
+
+    // Populate dietary
+    var dietary = ['Vegetarian', 'Vegan', 'Gluten-Free', 'Nut-Free'];
+    dietary.forEach(function(d) {
+        $('#dietaryFilter').append('<option value="' + d + '">' + d + '</option>');
+    });
 }
 
-function createRestaurantCard(restaurant)
-{
-    const icons = {
+function loadRestaurants() {
+    var restaurants = [
+        { id: 1, name: 'Le Chef', place: 'Tunis', governorate: 'Tunis', rating: 4.5, category: 'Traditional' },
+        { id: 2, name: 'Pizza Palace', place: 'Sfax', governorate: 'Sfax', rating: 4.8, category: 'Pizza' },
+        { id: 3, name: 'Burger House', place: 'Ariana', governorate: 'Ariana', rating: 4.2, category: 'Burger' },
+        { id: 4, name: 'Kebab Elite', place: 'Sousse', governorate: 'Sousse', rating: 4.6, category: 'Kebab' },
+        { id: 5, name: 'Sea Fresh', place: 'Nabeul', governorate: 'Nabeul', rating: 4.4, category: 'Seafood' },
+        { id: 6, name: 'Spicy House', place: 'Kairouan', governorate: 'Kairouan', rating: 4.1, category: 'Spicy' }
+    ];
+
+    renderRestaurants(restaurants);
+}
+
+function renderRestaurants(restaurants) {
+    var $grid = $('#restaurantsGrid');
+    var icons = {
         'Traditional': '🥙',
         'Pizza': '🍕',
         'Burger': '🍔',
         'Kebab': '🥩',
         'Seafood': '🦐',
-        'Dessert': '🍰',
         'Sandwich': '🥪',
         'Spicy': '🌶️',
-        'Sweet': '🍰',
+        'Dessert': '🍰',
         'Drink': '🥤'
     };
-    
-    const icon = icons[restaurant.category] || '🍽️';
-    
-    const card = $(`
-        <div class="restaurant-card">
-            <div class="restaurant-image">
-                ${icon}
-                <span class="restaurant-badge">${restaurant.category}</span>
-            </div>
-            <div class="restaurant-info">
-                <h3 class="restaurant-name">${restaurant.name}</h3>
-                <div class="restaurant-location">
-                    <span>📍</span>
-                    ${restaurant.place}, ${restaurant.governorate}
-                </div>
-                <div class="restaurant-meta">
-                    <div class="restaurant-rating">⭐ ${restaurant.rating}</div>
-                </div>
-            </div>
-        </div>
-    `);
-    
-    // Click handler
-    card.on('click', function()
-    {
-        console.log('View restaurant:', restaurant.id);
-        // TODO: Navigate to restaurant details
+
+    $grid.html('');
+
+    if (restaurants.length === 0) {
+        $('#emptyState').removeClass('hidden');
+        $('#resultsCount').text('0');
+        return;
+    }
+
+    $('#emptyState').addClass('hidden');
+    $('#resultsCount').text(restaurants.length);
+
+    restaurants.forEach(function(r, index) {
+        var icon = icons[r.category] || '🍽️';
+        var card = $(
+            '<div class="restaurant-card" style="opacity:0">' +
+                '<div class="restaurant-image">' +
+                    '<span class="restaurant-icon">' + icon + '</span>' +
+                    '<span class="restaurant-badge">' + r.category + '</span>' +
+                '</div>' +
+                '<div class="restaurant-info">' +
+                    '<h3 class="restaurant-name">' + r.name + '</h3>' +
+                    '<p class="restaurant-location">📍 ' + r.place + ', ' + r.governorate + '</p>' +
+                    '<div class="restaurant-footer">' +
+                        '<span class="restaurant-rating">⭐ ' + r.rating + '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>'
+        );
+
+        $grid.append(card);
+
+        // Staggered fade in
+        setTimeout(function() {
+            card.animate({ opacity: 1 }, 300);
+        }, index * 100);
     });
-    
-    return card;
 }
 
-// Easing function
-$.easing.easeInOutQuad = function(x, t, b, c, d)
-{
-    t /= d / 2;
-    if (t < 1) return c / 2 * t * t + b;
-    t--;
-    return -c / 2 * (t * (t - 2) - 1) + b;
-};
+// Filter handlers
+$('#governorateFilter, #categoryFilter, #dietaryFilter').on('change', function() {
+    // TODO: Implement real filtering with AJAX
+});
+
+$('#searchInput').on('keyup', function() {
+    var query = $(this).val().toLowerCase();
+    $('.restaurant-card').each(function() {
+        var name = $(this).find('.restaurant-name').text().toLowerCase();
+        $(this).toggle(name.indexOf(query) > -1);
+    });
+});

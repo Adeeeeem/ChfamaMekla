@@ -1,0 +1,25 @@
+{
+	"title": "شفما ماكلة؟",
+	"subtitle": "شوف وين تاكل",
+	"search": "ابحث على مطعم...",
+	"search_btn": "ابحث",
+	"governorate": "الولاية",
+	"category": "الصنف",
+	"all": "الكل",
+	"restaurants": "مطاعم",
+	"no_results": "ما فماش وين تاكل",
+	"footer": "شفما ماكلة؟ - صنع في تونس",
+	"categories":
+	{
+		"burger": "برغر",
+		"pizza": "بيتزا",
+		"spicy": "حار",
+		"sweet": "حلو",
+		"traditional": "تقليدي",
+		"sandwich": "ساندويش",
+		"kebab": "كباب",
+		"seafood": "بحري",
+		"dessert": "حلويات",
+		"drink": "مشروبات"
+	}
+}

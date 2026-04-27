@@ -1,0 +1,25 @@
+{
+	"title": "ماذا نأكل؟",
+	"subtitle": "ابحث اين تاكل",
+	"search": "ابحث عن مطعم...",
+	"search_btn": "ابحث",
+	"governorate": "الولاية",
+	"category": "الصنف",
+	"all": "الكل",
+	"restaurants": "مطاعم",
+	"no_results": "لا يوجد مكان للأكل",
+	"footer": "ماذا نأكل؟ - صنع في تونس",
+	"categories":
+	{
+		"burger": "برغر",
+		"pizza": "بيتزا",
+		"spicy": "حار",
+		"sweet": "حلو",
+		"traditional": "تقليدي",
+		"sandwich": "ساندويش",
+		"kebab": "كباب",
+		"seafood": "بحري",
+		"dessert": "حلويات",
+		"drink": "مشروبات"
+	}
+}
