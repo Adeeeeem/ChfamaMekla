@@ -280,15 +280,15 @@ INSERT INTO public.gouvernorats (name_ar, name_fr) VALUES
 	'Ben Arous'
 ),
 (
-	'بسكرة',
+	'بنزرت',
 	'Bizerte'
 ),
 (
-	'قفصى',
+	'ڨابس',
 	'Gabès'
 ),
 (
-	'قفص',
+	'ڨفصة',
 	'Gafsa'
 ),
 (
