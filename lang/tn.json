@@ -5,10 +5,38 @@
 	"search_btn": "ابحث",
 	"governorate": "الولاية",
 	"category": "الصنف",
-	"all": "الكل",
+	"dietary": "الطعام",
+	"all": "كول",
 	"restaurants": "مطاعم",
 	"no_results": "ما فماش وين تاكل",
 	"footer": "شفما ماكلة؟ - صنع في تونس",
+	"governorates": {
+		"Grand Tunis": "تونس الكبرى",
+		"Ariana": "أريانة",
+		"Béja": "باجة",
+		"Ben Arous": "بن عروس",
+		"Bizerte": "بنزرت",
+		"Gabès": "ڨابس",
+		"Gafsa": "ڨفصة",
+		"Jendouba": "جندوبة",
+		"Kairouan": "القيروان",
+		"Kasserine": "القصرين",
+		"Kebili": "ڨبلي",
+		"Kef": "الكاف",
+		"Mahdia": "المهدية",
+		"Manouba": "منوبة",
+		"Medenine": "مدنين",
+		"Monastir": "المنستير",
+		"Nabeul": "نابل",
+		"Sfax": "صفاقس",
+		"Sidi Bouzid": "سيدي بوزيد",
+		"Siliana": "سليانة",
+		"Sousse": "سوسة",
+		"Tataouine": "تطاوين",
+		"Tozeur": "توزر",
+		"Tunis": "تونس",
+		"Zaghouan": "زغوان"
+	},
 	"categories":
 	{
 		"burger": "برغر",
@@ -21,5 +49,13 @@
 		"seafood": "بحري",
 		"dessert": "حلويات",
 		"drink": "مشروبات"
+	},
+	"dietary_options": {
+		"gluten_free": "بلا غلوتين",
+		"dairy_free": "بلا حليب",
+		"sugar_free": "بلا سكر",
+		"nut_free": "بلا مكسرات",
+		"vegan": "نباتي",
+		"vegetarian": "خضار"
 	}
 }

@@ -24,15 +24,13 @@ DROP TABLE IF EXISTS public.users;
 
 -- =============================================================================
 -- TABLE : gouvernorats (no dependencies)
--- Governorates (regions) of Tunisia, including Grand Tunis hierarchy
--- name_ar : Arabic/Tunisian name
--- name_fr : French/English name (same value)
+-- Governorates (regions) of Tunisia
+-- name : Display name (English by default)
 -- =============================================================================
 CREATE TABLE public.gouvernorats
 (
 	id SERIAL PRIMARY KEY,
-	name_ar VARCHAR(100) NOT NULL,
-	name_fr VARCHAR(100) NOT NULL,
+	name VARCHAR(100) NOT NULL,
 	parent_id INTEGER,
 
 	CONSTRAINT fk_gouvernorats_parent
@@ -44,14 +42,12 @@ CREATE TABLE public.gouvernorats
 -- =============================================================================
 -- TABLE : places (depends on gouvernorats)
 -- Cities/areas within governorates
--- name_ar : Arabic/Tunisian name
--- name_fr : French/English name (same value)
+-- name : Display name
 -- =============================================================================
 CREATE TABLE public.places
 (
 	id SERIAL PRIMARY KEY,
-	name_ar VARCHAR(100) NOT NULL,
-	name_fr VARCHAR(100) NOT NULL,
+	name VARCHAR(100) NOT NULL,
 	gouvernorat_id INTEGER NOT NULL,
 
 	CONSTRAINT fk_places_gouvernorat
@@ -258,116 +254,38 @@ EXECUTE FUNCTION public.update_restaurant_average_rating();
 
 -- =============================================================================
 -- INITIAL DATA : Tunisian Governorates (24 governorates + Grand Tunis)
--- Grand Tunis (Tunis + Ariana + Ben Arous + Manouba) as parent region
--- name_ar : Arabic/Tunisian name
--- name_fr : French/English name
 -- =============================================================================
-INSERT INTO public.gouvernorats (name_ar, name_fr) VALUES
-(
-	'تونس الكبرى',
-	'Grand Tunis'
-),
-(
-	'أريانة',
-	'Ariana'
-),
-(
-	'باجة',
-	'Béja'
-),
-(
-	'بن عروس',
-	'Ben Arous'
-),
-(
-	'بنزرت',
-	'Bizerte'
-),
-(
-	'ڨابس',
-	'Gabès'
-),
-(
-	'ڨفصة',
-	'Gafsa'
-),
-(
-	'جندوبة',
-	'Jendouba'
-),
-(
-	'القيروان',
-	'Kairouan'
-),
-(
-	'القصرين',
-	'Kasserine'
-),
-(
-	'قبلي',
-	'Kebili'
-),
-(
-	'الكاف',
-	'Kef'
-),
-(
-	'المهدية',
-	'Mahdia'
-),
-(
-	'منوبة',
-	'Manouba'
-),
-(
-	'مدنين',
-	'Medenine'
-),
-(
-	'المنستير',
-	'Monastir'
-),
-(
-	'نابل',
-	'Nabeul'
-),
-(
-	'صفاقس',
-	'Sfax'
-),
-(
-	'سيدي بوزيد',
-	'Sidi Bouzid'
-),
-(
-	'سليانة',
-	'Siliana'
-),
-(
-	'سوسة',
-	'Sousse'
-),
-(
-	'تطاوين',
-	'Tataouine'
-),
-(
-	'توزر',
-	'Tozeur'
-),
-(
-	'تونس',
-	'Tunis'
-),
-(
-	'زغوان',
-	'Zaghouan'
-);
+INSERT INTO public.gouvernorats (name) VALUES
+('Grand Tunis'),
+('Ariana'),
+('Béja'),
+('Ben Arous'),
+('Bizerte'),
+('Gabès'),
+('Gafsa'),
+('Jendouba'),
+('Kairouan'),
+('Kasserine'),
+('Kebili'),
+('Kef'),
+('Mahdia'),
+('Manouba'),
+('Medenine'),
+('Monastir'),
+('Nabeul'),
+('Sfax'),
+('Sidi Bouzid'),
+('Siliana'),
+('Sousse'),
+('Tataouine'),
+('Tozeur'),
+('Tunis'),
+('Zaghouan');
 
 -- Link Grand Tunis governorates to parent
 UPDATE public.gouvernorats
 SET parent_id = 1
-WHERE name_fr IN
+WHERE name IN
 (
 	'Tunis',
 	'Ariana',

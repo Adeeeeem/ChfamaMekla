@@ -18,27 +18,27 @@ $defaultLabels = json_decode(file_get_contents(__DIR__ . '/lang/en.json'), true)
 $l = array_merge($defaultLabels, $labels);
 
 try {
-    $stmt = $conn->query("SELECT id, name_fr, name_ar FROM gouvernorats ORDER BY id");
+    $stmt = $conn->query("SELECT id, name FROM gouvernorats ORDER BY id");
     $governorates = $stmt->fetchAll();
 
-    $stmt = $conn->query("SELECT id, category_key FROM restaurant_categories ORDER BY category_key");
+    $stmt = $conn->query("SELECT id, category_key FROM categories ORDER BY category_key");
     $categories = $stmt->fetchAll();
     
-    $stmt = $conn->query("SELECT id, dietary_key FROM restaurant_dietary_options ORDER BY id");
+    $stmt = $conn->query("SELECT id, dietary_key FROM dietaryoptions ORDER BY id");
     $dietary = $stmt->fetchAll();
 
     $stmt = $conn->query("
-        SELECT r.id, r.name, r.average_rating, p.name_fr as place, g.name_fr as governorate,
+        SELECT r.id, r.name, r.average_rating, p.name as place, g.name as governorate,
                STRING_AGG(DISTINCT rc.category_key, ',') as categories,
                STRING_AGG(DISTINCT rd.dietary_key, ',') as dietary
         FROM restaurants r
         JOIN places p ON r.place_id = p.id
         JOIN gouvernorats g ON p.gouvernorat_id = g.id
-        LEFT JOIN restaurant_categories_junction rcj ON r.id = rcj.restaurant_id
-        LEFT JOIN restaurant_categories rc ON rcj.category_id = rc.id
-        LEFT JOIN restaurant_dietary_junction rdj ON r.id = rdj.restaurant_id
-        LEFT JOIN restaurant_dietary_options rd ON rdj.dietary_id = rd.id
-        GROUP BY r.id, r.name, r.average_rating, p.name_fr, g.name_fr
+        LEFT JOIN restaurant_categories rcj ON r.id = rcj.restaurant_id
+        LEFT JOIN categories rc ON rcj.category_id = rc.id
+        LEFT JOIN restaurant_dietary rdj ON r.id = rdj.restaurant_id
+        LEFT JOIN dietaryoptions rd ON rdj.dietary_id = rd.id
+        GROUP BY r.id, r.name, r.average_rating, p.name, g.name
         ORDER BY r.name
     ");
     $restaurants = $stmt->fetchAll();
@@ -126,9 +126,10 @@ try {
                     <input type="checkbox" class="filter-option" id="gov_all" value="" checked>
                     <label for="gov_all"><?= htmlspecialchars($l['all'] ?? 'All') ?></label>
                     <?php foreach ($governorates as $g): ?>
-                        <?php $name = ($lang === 'ar' || $lang === 'tn') ? ($g['name_ar'] ?: $g['name_fr']) : $g['name_fr']; ?>
-                        <input type="checkbox" class="filter-option" id="gov_<?= htmlspecialchars($g['name_fr']) ?>" value="<?= htmlspecialchars($g['name_fr']) ?>">
-                        <label for="gov_<?= htmlspecialchars($g['name_fr']) ?>"><?= htmlspecialchars($name) ?></label>
+                        $catLabel = isset($l['governorates'][$g['name']]) ? $l['governorates'][$g['name']] : $g['name'];
+                    ?>
+                        <input type="checkbox" class="filter-option" id="gov_<?= htmlspecialchars($g['name']) ?>" value="<?= htmlspecialchars($g['name']) ?>">
+                        <label for="gov_<?= htmlspecialchars($g['name']) ?>"><?= htmlspecialchars($catLabel) ?></label>
                     <?php endforeach; ?>
                 </div>
             </div>
